@@ -33,6 +33,7 @@ int year_most_alive(person_t records[], int num_records, int *year_most_alive, i
   assert(num_records > 0);
   assert(year_most_alive != NULL);
   assert(number_alive != NULL);
+  // TODO: Add error return values
 
   // Create birth year and death year arrays
   // o(n) performance and memory
@@ -49,9 +50,7 @@ int year_most_alive(person_t records[], int num_records, int *year_most_alive, i
   arr_sort(births, num_records);  //o(nlogn)
   arr_sort(deaths, num_records);  //o(nlogn)
 
-  int start_year = births[0];
-  int end_year = births[num_records - 1];
-
+  // Tracking variables
   int num_alive = 0;
   int max_alive = 0;
 
@@ -59,6 +58,10 @@ int year_most_alive(person_t records[], int num_records, int *year_most_alive, i
   // o(n)-ish. Actually O(m) where m is the number of years between the first and last birth year
   int birth_index = 0;
   int death_index = 0;
+
+  int start_year = births[0];
+  int end_year = births[num_records - 1];
+
   bool decrement_next_iter = false; // Needed to decrement count on year after death
   for (int i = start_year; i < end_year; i++) {
     if (decrement_next_iter) {
